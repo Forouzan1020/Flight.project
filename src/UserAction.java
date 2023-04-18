@@ -18,8 +18,6 @@ public class UserAction {
 //  [ Sing up => passenger ]
     public void passengerAction(int optionPassenger){
 
-
-
     }
 
 }

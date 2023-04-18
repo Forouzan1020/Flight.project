@@ -33,7 +33,7 @@ public class Menu {
 
           String name, pass;
 
-          System.out.println("[ Welcome to airline reservation system ] \n\n [ Menu option ] \n\n  [1] Sing in \n [2] Sing up \n\n");
+          System.out.println("[ Welcome to airline reservation system ] \n\n [ Menu option ] \n\n [1] Sing in \n [2] Sing up");
 
           optionSing = cin.nextInt();
 
@@ -41,17 +41,17 @@ public class Menu {
 
                case 1: {
 
-                    System.out.println("[ Enter your Name ] \n\n");
+                    System.out.println("[ Enter your Name ] ");
 
                     name = cin.next();
 
-                    System.out.println("[ Enter your pass ] \n\n");
+                    System.out.println("[ Enter your pass ] ");
 
                     pass = cin.next();
 
                     if (checkSing(name , pass , users) == 0){
 
-                         System.out.println("Passenger menu option \n\n");
+                         System.out.println("Passenger menu option ");
                          System.out.println("[1] Change password \n [2] Search flight tickets \n [3] Bocking tickets \n [4] Ticket cancellation \n [5] Boocked ticket \n [6] Add charge \n [0] Sing out");
 
                          optionUser = cin.nextInt();
@@ -69,11 +69,11 @@ public class Menu {
 
                case 2: {
 
-                    System.out.println("[ Enter your Name ] \n\n");
+                    System.out.println("[ Enter your Name ] ");
 
                     name = cin.next();
 
-                    System.out.println("[ Enter your pass ] \n\n");
+                    System.out.println("[ Enter your pass ] ");
 
                     pass = cin.next();
 
