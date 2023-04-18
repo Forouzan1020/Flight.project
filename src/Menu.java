@@ -2,17 +2,13 @@ import java.util.Scanner;
 
 public class Menu {
 
-     UserAction userAction = new UserAction();
-     TicketsAction ticketsAction = new TicketsAction();
-     UserInformation[] users = new UserInformation[30];
-     TicketsInformation[] tickets = new TicketsInformation[30];
 
 
 //  ====================================================================================================================
 
 //  [ Start ]
 
-     public void start() {
+     public void start(UserAction userAction , TicketsAction ticketsAction , UserInformation [] users , TicketsInformation [] tickets) {
 
           userAction.newUser(users);
           ticketsAction.newTickets(tickets);
@@ -27,6 +23,11 @@ public class Menu {
      public void menu() {
 
           Scanner cin = new Scanner(System.in);
+
+          UserAction userAction = new UserAction();
+          TicketsAction ticketsAction = new TicketsAction();
+          UserInformation[] users = new UserInformation[30];
+          TicketsInformation[] tickets = new TicketsInformation[30];
 
           int optionSing , optionUser;
 
@@ -48,7 +49,7 @@ public class Menu {
 
                     pass = cin.next();
 
-                    if (checkSing(name , pass) == 0){
+                    if (checkSing(name , pass , users) == 0){
 
                          System.out.println("Passenger menu option \n\n");
                          System.out.println("[1] Change password \n [2] Search flight tickets \n [3] Bocking tickets \n [4] Ticket cancellation \n [5] Boocked ticket \n [6] Add charge \n [0] Sing out");
@@ -56,7 +57,7 @@ public class Menu {
                          optionUser = cin.nextInt();
                          userAction.passengerAction(optionUser);
 
-                    } else if (checkSing(name , pass) == 1) {
+                    } else if (checkSing(name , pass , users) == 1) {
 
                          System.out.println("Admin menu option \n\n");
                          System.out.println("[1] Add \n [2] Update \n [3] Remove \n [4] Flight schedules \n [0] Sing out");
@@ -85,7 +86,7 @@ public class Menu {
 
 //  [ Specify user , exist or not exist ]
 
-     public int checkSing(String nameUser, String passUser) {
+     public int checkSing(String nameUser, String passUser , UserInformation [] users) {
 
           int specify = 3;
 
