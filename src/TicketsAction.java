@@ -43,4 +43,25 @@ public class TicketsAction {
         threeTickets[2].setSeats(12);
 
     }
+
+//  ====================================================================================================================
+
+//  [ Specify tickets with flightId ]
+
+    public  boolean checkTicket(TicketsInformation [] tickets , String flightId){
+
+        for (int i = 0; i < 30; i++) {
+
+            if (tickets[i] != null && tickets[i].equals(flightId)){
+
+                return  true;
+
+            }
+
+        }
+
+        return  false;
+
+    }
+
 }

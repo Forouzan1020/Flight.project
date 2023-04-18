@@ -29,7 +29,7 @@ public class Menu {
           UserInformation[] users = new UserInformation[30];
           TicketsInformation[] tickets = new TicketsInformation[30];
 
-          int optionSing , optionUser;
+          int optionSing , optionUser ,optionAdmin;
 
           String name, pass;
 
@@ -61,6 +61,9 @@ public class Menu {
 
                          System.out.println("Admin menu option \n\n");
                          System.out.println("[1] Add \n [2] Update \n [3] Remove \n [4] Flight schedules \n [0] Sing out");
+
+                         optionAdmin = cin.nextInt();
+
 
                     }
 
