@@ -2,14 +2,14 @@ import java.util.Scanner;
 
 public class Menu {
 
-          Admin admin = new Admin();
+     Admin admin = new Admin();
 
 
 //  ====================================================================================================================
 
 //  [ Start ]
 
-     public void start(UserAction userAction , TicketsAction ticketsAction , UserInformation [] users , TicketsInformation [] tickets) {
+     public void start(UserAction userAction, TicketsAction ticketsAction, UserInformation[] users, TicketsInformation[] tickets) {
 
           userAction.newUser(users);
           ticketsAction.newTickets(tickets);
@@ -30,7 +30,7 @@ public class Menu {
           UserInformation[] users = new UserInformation[30];
           TicketsInformation[] tickets = new TicketsInformation[30];
 
-          int optionSing , optionUser ,optionAdmin;
+          int optionSing, optionUser, optionAdmin ;
 
           String name, pass;
 
@@ -42,39 +42,59 @@ public class Menu {
 
                case 1: {
 
-                    System.out.println("[ Enter your Name ] ");
+                    System.out.println("[ Enter your name ] ");
 
                     name = cin.next();
 
-                    System.out.println("[ Enter your pass ] ");
+                    while (true) {
 
-                    pass = cin.next();
+                         if (checkName(name, users) == 0 || checkName(name, users) == 1) {
 
-                    if (checkSing(name , pass , users) == 0){
+                              System.out.println("[ Enter your pass ] ");
 
-                         System.out.println("Passenger menu option ");
-                         System.out.println("[1] Change password \n [2] Search flight tickets \n [3] Bocking tickets \n [4] Ticket cancellation \n [5] Boocked ticket \n [6] Add charge \n [0] Sing out");
+                              pass = cin.next();
 
-                         optionUser = cin.nextInt();
-                         userAction.passengerAction(optionUser);
+                              if (checkSing(name, pass, users) == 0) {
 
-                    } else if (checkSing(name , pass , users) == 1) {
+                                   System.out.println("[ Passenger menu option ] \n\n ");
+                                   System.out.println("[1] Change password \n[2] Search flight tickets \n[3] Bocking tickets \n[4] Ticket cancellation \n[5] Boocked ticket \n[6] Add charge \n[0] Sing out");
 
-                         System.out.println("Admin menu option \n\n");
-                         System.out.println("[1] Add \n [2] Update \n [3] Remove \n [4] Flight schedules \n [0] Sing out");
+                                   optionUser = cin.nextInt();
+                                   userAction.passengerAction(optionUser);
 
-                         optionAdmin = cin.nextInt();
-                         admin.admin(optionAdmin , tickets);
+
+                                   break;
+
+                              } else if (checkSing(name, pass, users) == 1) {
+
+                                   System.out.println("[ Admin menu option ] \n\n");
+                                   System.out.println("[1] Add \n[2] Update \n[3] Remove \n[4] Flight schedules \n[0] Sing out");
+
+                                   optionAdmin = cin.nextInt();
+                                   admin.admin(optionAdmin, tickets);
+
+
+                                   break;
+                              }else {
+                                   System.out.println(" [ Password is not correct ]");
+
+                                   break;
+                              }
+
+                              }else {
+                                   System.out.println("[ This username not find ]");
+                                   break;
+
+                         }
 
                     }
-
                     break;
 
                }
 
                case 2: {
 
-                    System.out.println("[ Enter your Name ] ");
+                    System.out.println("[ Enter your name >] ");
 
                     name = cin.next();
 
@@ -93,30 +113,71 @@ public class Menu {
 
 //  [ Specify user , exist or not exist ]
 
-     public int checkSing(String nameUser, String passUser , UserInformation [] users) {
+     public int checkName(String nameUser, UserInformation[] users) {
 
           int specify = 3;
 
+          if (nameUser.equals("Admin")) {
+
+               specify = 1;
+
+          }
+
           for (int i = 0; i < 25; i++) {
 
-               if (users[i].getPass() != null) {
+               if (users[i] != null) {
 
-                    if (users[i].equals(nameUser) && users[i].equals(passUser)) {
+                    if (nameUser.equals(users[i].getName())) {
+
 
                          specify = 0;
+                         break;
 
-                    } else if (nameUser.equals("Admin") && passUser.equals("Admin")) {
-
-                         specify = 1;
-
-                    } else {
+                    }   else {
 
                          specify = 2;
+                         break;
 
                     }
 
                }
+               break;
+          }
 
+          return specify;
+     }
+//  ====================================================================================================================
+
+//  [ Specify user , exist or not exist ]
+
+     public int checkSing(String nameUser,String passUser, UserInformation[] users) {
+
+          int specify = 3;
+
+           if (nameUser.equals("Admin") && passUser.equals("Admin")) {
+
+               specify = 1;
+           }
+
+          for (int i = 0; i < 25; i++) {
+
+               if (users[i] != null) {
+
+                    if (nameUser.equals(users[i].getName()) && passUser.equals( users[i].getPass())) {
+
+                         specify = 0;
+                         break;
+
+
+                    } else {
+
+                         specify = 2;
+                         break;
+
+                    }
+
+               }
+               break;
           }
 
           return specify;
