@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Menu {
 
+          Admin admin = new Admin();
 
 
 //  ====================================================================================================================
@@ -63,10 +64,11 @@ public class Menu {
                          System.out.println("[1] Add \n [2] Update \n [3] Remove \n [4] Flight schedules \n [0] Sing out");
 
                          optionAdmin = cin.nextInt();
-
+                         admin.admin(optionAdmin , tickets);
 
                     }
 
+                    break;
 
                }
 
@@ -79,6 +81,8 @@ public class Menu {
                     System.out.println("[ Enter your pass ] ");
 
                     pass = cin.next();
+
+                    break;
 
                }
           }
@@ -95,7 +99,7 @@ public class Menu {
 
           for (int i = 0; i < 25; i++) {
 
-               if (users[i] != null) {
+               if (users[i].getPass() != null) {
 
                     if (users[i].equals(nameUser) && users[i].equals(passUser)) {
 
