@@ -3,13 +3,16 @@ import java.util.Scanner;
 public class Menu {
 
      Admin admin = new Admin();
-
+     UserAction userAction = new UserAction();
+     TicketsAction ticketsAction = new TicketsAction();
+     UserInformation[] users = new UserInformation[30];
+     TicketsInformation[] tickets = new TicketsInformation[30];
 
 //  ====================================================================================================================
 
 //  [ Start ]
 
-     public void start(UserAction userAction, TicketsAction ticketsAction, UserInformation[] users, TicketsInformation[] tickets) {
+     public void start() {
 
           userAction.newUser(users);
           ticketsAction.newTickets(tickets);
@@ -23,18 +26,14 @@ public class Menu {
 
      public void menu() {
 
-          Scanner cin = new Scanner(System.in);
 
-          UserAction userAction = new UserAction();
-          TicketsAction ticketsAction = new TicketsAction();
-          UserInformation[] users = new UserInformation[30];
-          TicketsInformation[] tickets = new TicketsInformation[30];
+          Scanner cin = new Scanner(System.in);
 
           int optionSing, optionUser, optionAdmin ;
 
           String name, pass;
 
-          boolean loop1 = true , loop2 = true;
+          boolean loop1 = true , loop2 = true , loop3 = true;
 
           System.out.println("[ Welcome to airline reservation system ] \n\n [ Menu option ] \n\n [1] Sing in \n [2] Sing up");
 
@@ -43,56 +42,62 @@ public class Menu {
           switch (optionSing) {
 
                case 1: {
+                    do {
 
                     System.out.println("[ Enter your name ] ");
 
                     name = cin.next();
 
-                    do {
+
 
                          if (checkName(name, users) == 0 || checkName(name, users) == 1) {
 
-                              System.out.println("[ Enter your pass ] ");
+                              loop1 = false;
 
-                              pass = cin.next();
+                              do {
 
-                              if (checkSing(name, pass, users) == 0) {
+                                   System.out.println("[ Enter your pass ] ");
 
-                                   System.out.println("[ Passenger menu option ] \n\n ");
-                                   System.out.println("[1] Change password \n[2] Search flight tickets \n[3] Bocking tickets \n[4] Ticket cancellation \n[5] Boocked ticket \n[6] Add charge \n[0] Sing out");
+                                   pass = cin.next();
 
-                                   optionUser = cin.nextInt();
-                                   userAction.passengerAction(optionUser);
+                                   if (checkSing(name, pass, users) == 0) {
 
+                                        System.out.println("[ Passenger menu option ] \n\n ");
+                                        System.out.println("[1] Change password \n[2] Search flight tickets \n[3] Bocking tickets \n[4] Ticket cancellation \n[5] Boocked ticket \n[6] Add charge \n[0] Sing out");
 
-                                   break;
+                                        optionUser = cin.nextInt();
+                                        userAction.passengerAction(optionUser);
 
-                              } else if (checkSing(name, pass, users) == 1) {
+                                        loop2 = false;
+                                        break;
 
-                                   System.out.println("[ Admin menu option ] \n\n");
-                                   System.out.println("[1] Add \n[2] Update \n[3] Remove \n[4] Flight schedules \n[0] Sing out");
+                                   } else if (checkSing(name, pass, users) == 1) {
 
-                                   optionAdmin = cin.nextInt();
-                                   admin.admin(optionAdmin, tickets);
+                                        System.out.println("[ Admin menu option ] \n\n");
+                                        System.out.println("[1] Add \n[2] Update \n[3] Remove \n[4] Flight schedules \n[0] Sing out");
 
+                                        optionAdmin = cin.nextInt();
+                                        admin.admin(optionAdmin, tickets);
 
-                                   break;
+                                        loop2 = false;
+                                        break;
 
-                              }else {
-                                   System.out.println(" [ Password is not correct ]");
+                                   } else if (checkSing(name, pass, users) == 2) {
 
+                                        System.out.println("[ your password is not correct ]");
+
+                                   }
+
+                              }while (loop2);
+
+                         }else {
+                                   System.out.println("[ This username not find ]");
                               }
 
-                              }else {
-                                   System.out.println("[ This username not find ]");
-                                   break;
-
-                         }
 
                     } while (loop1);
 
                     break;
-
                }
 
                case 2: {
@@ -116,18 +121,20 @@ public class Menu {
 
                                              users[i].setPass(pass);
 
-                                             break;
-
+                                             loop3 =false;
                                         }
 
+                                        break;
                                    }
 
                               }else {
                                    System.out.println("[ This user already exist ]");
                               }
 
-                    }while (loop2);
 
+                    }while (loop3);
+
+                    break;
                }
           }
      }
@@ -139,7 +146,7 @@ public class Menu {
 
      public int checkName(String nameUser, UserInformation[] users) {
 
-          int specify = 3;
+          int specify = 2;
 
           if (nameUser.equals("Admin")) {
 
@@ -149,7 +156,7 @@ public class Menu {
 
           for (int i = 0; i < 30; i++) {
 
-               if (users[i] != null) {
+               if (users[i].getName() != null) {
 
                     if (nameUser.equals(users[i].getName())) {
 
@@ -157,15 +164,10 @@ public class Menu {
                          specify = 0;
                          break;
 
-                    }   else {
-
-                         specify = 2;
-                         break;
-
                     }
 
                }
-               break;
+
           }
 
           return specify;
@@ -176,7 +178,7 @@ public class Menu {
 
      public int checkSing(String nameUser,String passUser, UserInformation[] users) {
 
-          int specify = 3;
+          int specify = 2;
 
            if (nameUser.equals("Admin") && passUser.equals("Admin")) {
 
@@ -185,7 +187,7 @@ public class Menu {
 
           for (int i = 0; i < 30; i++) {
 
-               if (users[i] != null) {
+               if (users[i].getName() != null) {
 
                     if (nameUser.equals(users[i].getName()) && passUser.equals( users[i].getPass())) {
 
@@ -193,15 +195,10 @@ public class Menu {
                          break;
 
 
-                    } else {
-
-                         specify = 2;
-                         break;
-
                     }
 
                }
-               break;
+
           }
 
           return specify;

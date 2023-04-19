@@ -26,6 +26,8 @@ public class Admin {
 
                     if (ticketsAction.checkTicket(tickets, flightId) == true) {
 
+                        loop1 = false;
+
                         for (int i = 0; i < 30; i++) {
 
                             if (tickets[i].getFlightId() == null) {
@@ -83,60 +85,85 @@ public class Admin {
 
                     flightChange = cin.next();
 
-                    if (findTicket(flightChange, tickets) != 50) {
 
-                        int flyId;
+                    if (findTicket(flightChange, tickets)) {
 
-                        flyId = findTicket(flightChange, tickets);
 
-                        System.out.println("[ Which feature do you want to change ] \n\n [1] FlightId \n [2] Origin \n [3] Destination \n [4] Date \n [5] Time \n [6] Price \n [7] Seats");
+                        for (int i = 0; i < 30; i++) {
 
-                        optionUpdate = cin.nextInt();
+                            if (tickets[i] != null) {
 
-                        switch (optionUpdate) {
-                            case 1: {
-                                System.out.println("[ Enter new FlightId ]");
-                                tickets[flyId].setFlightId(cin.next());
-                                break;
-                            }
+                                if (flightChange.equals(tickets[i].getFlightId())) {
 
-                            case 2: {
-                                System.out.println("[ Enter new Origin ]");
-                                tickets[flyId].setOrigin(cin.next());
-                                break;
-                            }
-                            case 3:{
-                                System.out.println("[ Enter new Destination ]");
-                                tickets[flyId].setDestination(cin.next());
-                                break;
-                            }
-                            case 4:{
-                                System.out.println("[ Enter new Date ]");
-                                tickets[flyId].setDate(cin.next());
-                                break;
-                            }
-                            case 5:{
-                                System.out.println("[ Enter new Time ]");
-                                tickets[flyId].setTime(cin.next());
-                                break;
-                            }
-                            case 6: {
-                                System.out.println("[ Enter new Price ]");
-                                tickets[flyId].setPrice(cin.nextInt());
-                                break;
-                            }
-                            case 7:{
-                                System.out.println("[ Enter new Seats ]");
-                                tickets[flyId].setSeats(cin.nextInt());
-                                break;
-                            }
-                            }
 
-                        }else {
+                                    System.out.println("[ Which feature do you want to change ] \n\n [1] FlightId \n [2] Origin \n [3] Destination \n [4] Date \n [5] Time \n [6] Price \n [7] Seats");
+
+                                    optionUpdate = cin.nextInt();
+
+                                    switch (optionUpdate) {
+                                        case 1: {
+                                            System.out.println("[ Enter new FlightId ]");
+                                            tickets[i].setFlightId(cin.next());
+                                            break;
+                                        }
+
+                                        case 2: {
+                                            System.out.println("[ Enter new Origin ]");
+                                            tickets[i].setOrigin(cin.next());
+                                            break;
+                                        }
+                                        case 3: {
+                                            System.out.println("[ Enter new Destination ]");
+                                            tickets[i].setDestination(cin.next());
+                                            break;
+                                        }
+                                        case 4: {
+                                            System.out.println("[ Enter new Date ]");
+                                            tickets[i].setDate(cin.next());
+                                            break;
+                                        }
+                                        case 5: {
+                                            System.out.println("[ Enter new Time ]");
+                                            tickets[i].setTime(cin.next());
+                                            break;
+                                        }
+                                        case 6: {
+                                            System.out.println("[ Enter new Price ]");
+                                            tickets[i].setPrice(cin.nextInt());
+                                            break;
+                                        }
+                                        case 7: {
+                                            System.out.println("[ Enter new Seats ]");
+                                            tickets[i].setSeats(cin.nextInt());
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        loop2 = false;
+
+                    } else {
                         System.out.println("[ Not find ]");
                     }
+
+
                 }while (loop2);
+
+                break;
             }
+
+            case 3:{
+//                [ Remove ticket ]
+
+
+
+            }
+
+
+
+
         }
 
     }
@@ -148,23 +175,25 @@ public class Admin {
 
 //  [ Find the desired ticket ]
 
-    public int findTicket(String flightId , TicketsInformation [] tickets) {
+    public boolean findTicket(String flightId , TicketsInformation [] tickets) {
 
-        int flyId = 50;
+        boolean find = false;
 
         for (int i = 0; i < 30; i++) {
 
-            if (tickets[i] != null && flightId.equals(tickets[i].getFlightId())) {
+            if (tickets[i].getFlightId() != null) {
 
-                flyId = i ;
+                if (flightId.equals(tickets[i].getFlightId())) {
 
-            } else {
-                flyId = 50;
+                    find = true;
+                    break;
+
+                }
             }
 
         }
 
-        return flyId;
+        return find;
     }
 
 
