@@ -34,6 +34,8 @@ public class Menu {
 
           String name, pass;
 
+          boolean loop1 = true , loop2 = true;
+
           System.out.println("[ Welcome to airline reservation system ] \n\n [ Menu option ] \n\n [1] Sing in \n [2] Sing up");
 
           optionSing = cin.nextInt();
@@ -46,7 +48,7 @@ public class Menu {
 
                     name = cin.next();
 
-                    while (true) {
+                    do {
 
                          if (checkName(name, users) == 0 || checkName(name, users) == 1) {
 
@@ -75,10 +77,10 @@ public class Menu {
 
 
                                    break;
+
                               }else {
                                    System.out.println(" [ Password is not correct ]");
 
-                                   break;
                               }
 
                               }else {
@@ -87,22 +89,44 @@ public class Menu {
 
                          }
 
-                    }
+                    } while (loop1);
+
                     break;
 
                }
 
                case 2: {
 
-                    System.out.println("[ Enter your name >] ");
+                    System.out.println("[ Enter your name ] ");
 
                     name = cin.next();
 
-                    System.out.println("[ Enter your pass ] ");
+                    do {
+                              System.out.println("[ Enter your pass ] ");
 
-                    pass = cin.next();
+                              pass = cin.next();
 
-                    break;
+                              if (checkSing(name , pass , users) == 2){
+
+                                   for (int i = 0; i < 30; i++) {
+
+                                        if (users[i] == null){
+
+                                             users[i].setName(name);
+
+                                             users[i].setPass(pass);
+
+                                             break;
+
+                                        }
+
+                                   }
+
+                              }else {
+                                   System.out.println("[ This user already exist ]");
+                              }
+
+                    }while (loop2);
 
                }
           }
@@ -123,7 +147,7 @@ public class Menu {
 
           }
 
-          for (int i = 0; i < 25; i++) {
+          for (int i = 0; i < 30; i++) {
 
                if (users[i] != null) {
 
@@ -159,7 +183,7 @@ public class Menu {
                specify = 1;
            }
 
-          for (int i = 0; i < 25; i++) {
+          for (int i = 0; i < 30; i++) {
 
                if (users[i] != null) {
 

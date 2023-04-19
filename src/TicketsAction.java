@@ -52,7 +52,7 @@ public class TicketsAction {
 
         for (int i = 0; i < 30; i++) {
 
-            if (tickets[i] != null && tickets[i].equals(flightId)){
+            if (tickets[i] != null && !flightId.equals(tickets[i].getFlightId())){
 
                 return  true;
 
