@@ -5,11 +5,13 @@ public class Admin {
 
     TicketsAction ticketsAction = new TicketsAction();
 
+
+
     public void admin(int optionAdmin, TicketsInformation[] tickets) {
 
-        String flightId, flightChange;
+        String flightId, flightChange , flightRemove;
         int optionUpdate;
-        boolean loop1 = true , loop2 = true;
+        boolean loop1 = true , loop2 = true , loop3 = true;
         Scanner cin = new Scanner(System.in);
 
         switch (optionAdmin) {
@@ -145,7 +147,7 @@ public class Admin {
                         loop2 = false;
 
                     } else {
-                        System.out.println("[ Not find ]");
+                        System.out.println("[ Not found ]");
                     }
 
 
@@ -157,12 +159,56 @@ public class Admin {
             case 3:{
 //                [ Remove ticket ]
 
+                do {
+
+                    System.out.println("[ Enter the flightId you want remove ]");
+
+                    flightRemove = cin.next();
+                    if (findTicket( flightRemove , tickets)){
+
+                        for (int i = 0; i < 30; i++) {
+                            if (tickets[i].getFlightId().equals(flightRemove)){
+
+                                tickets[i].setFlightId(null);
+                                tickets[i].setOrigin(null);
+                                tickets[i].setDestination(null);
+                                tickets[i].setDate(null);
+                                tickets[i].setTime(null);
+                                tickets[i].setPrice(0);
+                                tickets[i].setSeats(0);
+                                tickets[i] = null;
+
+                                break;
+                            }
+                        }
+
+                        loop3 = false;
+
+                    }else {
+                        System.out.println("[ This ticket does not exist ]");
+                    }
 
 
+                }while (loop3);
+
+                break;
             }
 
+            case 4:{
+//                [ Flight schedules ]
 
+                ticketsAction.printSchedules(tickets);
+                break;
+            }
 
+            case 5:{
+//                [ Sing out ]
+
+//                MergeUT mergeUT = new MergeUT();
+//                mergeUT.singOut();
+                break;
+
+            }
 
         }
 

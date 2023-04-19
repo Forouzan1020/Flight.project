@@ -8,5 +8,14 @@ public class MergeUT {
     private int ticketsId;
 
 
+    public  void singOut(){
+        Menu menu = new Menu();
+        menu.menu();
+    }
+
+    public void accessAdmin(int optionAdmin, TicketsInformation[] tickets){
+        Admin admin = new Admin();
+        admin.admin(optionAdmin , tickets);
+    }
 
 }

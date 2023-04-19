@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Menu {
 
      Admin admin = new Admin();
+//     MergeUT mergeUT = new MergeUT();
      UserAction userAction = new UserAction();
      TicketsAction ticketsAction = new TicketsAction();
      UserInformation[] users = new UserInformation[30];
@@ -91,7 +92,7 @@ public class Menu {
                               }while (loop2);
 
                          }else {
-                                   System.out.println("[ This username not find ]");
+                                   System.out.println("[ This username not found ]");
                               }
 
 
