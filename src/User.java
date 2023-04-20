@@ -1,11 +1,10 @@
-public class UserInformation {
+public class User {
 
     private String name;
     private String pass;
-    private int budget;
-    private int userId;
-//    userId is for connecting user to tickets he byu.
+    private long budget;
 
+    public Ticket [] tickets = new  Ticket[15];
 
     public String getName() {
         return name;
@@ -23,19 +22,14 @@ public class UserInformation {
         this.pass = pass;
     }
 
-    public int getBudget() {
+    public long getBudget() {
         return budget;
     }
 
-    public void setBudget(int budget) {
+    public void setBudget(long budget) {
         this.budget = budget;
     }
 
-    public int getUserId() {
-        return userId;
-    }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+
 }

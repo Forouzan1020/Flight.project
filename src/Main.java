@@ -2,9 +2,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Menu menu = new Menu();
-        menu.start();
-        menu.menu();
+        Login start = new Login();
+        start.start();
 
     }
 
