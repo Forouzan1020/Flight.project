@@ -242,7 +242,7 @@ public class UserAction {
 
         for (int j = 0; j < 15; j++) {
 
-            if (flights[j].getFlightId().equals(ticketId)){
+            if (flights[j] != null && flights[j].getFlightId().equals(ticketId)){
                 return j;
 
             }
