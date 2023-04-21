@@ -4,10 +4,12 @@ public class Login {
 
      Admin admin = new Admin();
      UserAction userAction = new UserAction();
+     FlightAction flightAction = new FlightAction();
      User[] users = new User[30];
      Flight[] flights = new Flight[30];
      Scanner cin = new Scanner(System.in);
      public static int loggedInIndex;
+     public static String done = "done";
 
 //  ====================================================================================================================
 
@@ -17,7 +19,7 @@ public class Login {
 
           newUser(users);
           newFlight(flights);
-          flightDeafualt(flights);
+          flightAction.flightDefault(flights);
           welcomeMenu();
 
      }
@@ -30,60 +32,77 @@ public class Login {
 
           int optionSing;
 
-          System.out.println("[ Welcome to airline reservation system ] \n\n [ Menu option ] \n\n [1] Sing in \n [2] Sing up");
+          System.out.println("[ Welcome to airline reservation system ] \n\n [ Menu option ] \n\n [1] Sing in \n [2] Sing up ");
 
           optionSing = cin.nextInt();
 
           switch (optionSing) {
 
-               case 1:
+               case 1:{
                     signIn();
-
-               case 2:
+                    break;}
+               case 2:{
                     signUp();
-
-               default:
+                    break;}
+               default:welcomeMenu();
           }
+          welcomeMenu();
      }
 
 //  ====================================================================================================================
 
      private void signUp() {
+
           String name, pass;
+
 
           System.out.println("[ Enter your name ] ");
 
           name = cin.next();
-          System.out.println("[ Enter your pass ] ");
+
+          System.out.println("[ Enter your pass ] \n [ Or if you want back enter X ] ");
 
           pass = cin.next();
 
-          if ( checkSing(name, pass, users) < 0 )
+          if ( pass.equals("X") ){
+
+               welcomeMenu();
+          }
+
+          else if ( checkSing(name, pass, users) == -2 )
           {
 
                for (int i = 0; i < 30; i++) {
 
-                    if (users[i].getName() == null)
+                    if (users[i] == null )
                     {
 
                          users[i].setName(name);
 
                          users[i].setPass(pass);
 
-                         welcomeMenu();
+                         Login.loggedInIndex = i;
 
+                         System.out.println(Login.done);
 
+                         userAction.passengerMenu(flights,users);
+
+                         break;
                     }
 
                }
 
           }
-
           else
           {
                System.out.println("[ This user already exist ]");
-               signUp();
+
+               try{Thread.sleep(500);}catch(InterruptedException e) {};
+
+               welcomeMenu();
           }
+
+
 
      }
 
@@ -93,6 +112,7 @@ public class Login {
      private void signIn()
      {
           String name, pass;
+
 
 
           System.out.println("[ Enter your name ] ");
@@ -110,14 +130,15 @@ public class Login {
 
                if (checkSing(name, pass, users) == -1) {
 
-                    admin.adminMenu(cin.nextInt(), flights);
+                    admin.adminMenu( flights);
                }
 
                else if (checkSing(name, pass, users) == -2)
                {
 
                     System.out.println("[ your password is not correct ]");
-                    signIn();
+                    try{Thread.sleep(500);}catch(InterruptedException e) {};
+                    welcomeMenu();
 
                }
 
@@ -131,7 +152,8 @@ public class Login {
           } else
           {
                System.out.println("[ This username not found ]");
-               signIn();
+               try{Thread.sleep(500);}catch(InterruptedException e) {};
+               welcomeMenu();
           }
 
 
@@ -144,23 +166,22 @@ public class Login {
 
      public int checkName(String nameUser, User[] users) {
 
-          int specify = 2;
 
           if (nameUser.equals("Admin")) {
 
-               specify = 1;
+               return 1;
 
           }
 
           for (int i = 0; i < 30; i++) {
 
-               if (users[i].getName() != null) {
+               if (users[i] != null && users[i].getName() != null) {
 
                     if (nameUser.equals(users[i].getName())) {
 
 
-                         specify = 0;
-                         break;
+                         return  0;
+
 
                     }
 
@@ -168,7 +189,7 @@ public class Login {
 
           }
 
-          return specify;
+          return 2;
      }
 //  ====================================================================================================================
 
@@ -179,7 +200,7 @@ public class Login {
 
 
 
-          if ( ( nameUser.equals("admin") && passUser.equals("admin") ) || ( nameUser.equals("ADMIN") && passUser.equals("ADMIN") ) )
+          if ( ( nameUser.equals("Admin") && passUser.equals("Admin") )  )
           {
 
                return -1;
@@ -188,7 +209,7 @@ public class Login {
           for (int i = 0; i < 30; i++)
           {
 
-               if (users[i].getName() != null)
+               if (users[i] !=  null && users[i].getName() != null)
                {
 
                     if (nameUser.equals(users[i].getName()) && passUser.equals(users[i].getPass()))
@@ -207,7 +228,9 @@ public class Login {
 
      }
 
-     //**********************************************************************************
+//  ====================================================================================================================
+
+//  [ New Users ]
 
      public void newUser(User[] users) {
 
@@ -219,48 +242,21 @@ public class Login {
           }
 
      }
-     //**********************************************************************************
 
-     public void flightDeafualt(Flight[] threeTickets)
-     {
+//  ====================================================================================================================
 
-          threeTickets[0].setFlightId("WX-12");
-          threeTickets[0].setOrigin("Yazd");
-          threeTickets[0].setDestination("Tehran");
-          threeTickets[0].setDate("1401-12-10");
-          threeTickets[0].setTime("12:30");
-          threeTickets[0].setPrice(700_000);
-          threeTickets[0].setSeats(51);
+     //  [ New flights ]
 
-          threeTickets[1].setFlightId("WZ-15");
-          threeTickets[1].setOrigin("Mashhad");
-          threeTickets[1].setDestination("Ahvaz");
-          threeTickets[1].setDate("1401-12-11");
-          threeTickets[1].setTime("08:00");
-          threeTickets[1].setPrice(900_000);
-          threeTickets[1].setSeats(245);
-
-          threeTickets[2].setFlightId("BG-22");
-          threeTickets[2].setOrigin("Shiraz");
-          threeTickets[2].setDestination("Tabriz");
-          threeTickets[2].setDate("1401-12-12");
-          threeTickets[2].setTime("22:30");
-          threeTickets[2].setPrice(1_100_000);
-          threeTickets[2].setSeats(12);
-
-     }
-
-     //**********************************************************************************
-     public void newFlight(Flight[] tickets)
+     public void newFlight(Flight[] flights)
      {
 
           for (int i = 0; i < 30; i++) {
 
-               tickets[i] = new Flight();
+               flights[i] = new Flight();
 
           }
 
      }
 
-     //**********************************************************************************
+
 }

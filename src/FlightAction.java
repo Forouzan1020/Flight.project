@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class FlightAction {
 
 //  ====================================================================================================================
@@ -8,35 +10,55 @@ public class FlightAction {
 
         for (int i = 0; i < 30; i++) {
 
-            if (flight[i] != null && !flightId.equals(flight[i].getFlightId())){
+            if (flight[i] != null && flight[i].getFlightId() != null ) {
 
-                return  i;
+
+                if (flightId.equals(flight[i].getFlightId())) {
+
+                    return i;
+
+                }
 
             }
 
         }
 
-        return  -1;
+        return -1;
 
     }
 //  ====================================================================================================================
 
-//  [ Print flight schedules ]
+//  [ Default three flight ]
 
-    public void printSchedules(Flight[] tickets){
+    public void flightDefault(Flight[] threeFlights)
+    {
 
-        System.out.println("|FlightId       |Origin         |Destination    |Date           |Time           |Price          |Seats          \n");
+        threeFlights[0].setFlightId("WX-12");
+        threeFlights[0].setOrigin("Yazd");
+        threeFlights[0].setDestination("Tehran");
+        threeFlights[0].setDate("1401-12-10");
+        threeFlights[0].setTime("12:30");
+        threeFlights[0].setPrice(700_000);
+        threeFlights[0].setSeats(51);
 
-        for (int i = 0; i < 30; i++) {
+        threeFlights[1].setFlightId("WZ-15");
+        threeFlights[1].setOrigin("Mashhad");
+        threeFlights[1].setDestination("Ahvaz");
+        threeFlights[1].setDate("1401-12-11");
+        threeFlights[1].setTime("08:00");
+        threeFlights[1].setPrice(900_000);
+        threeFlights[1].setSeats(245);
 
-            if (tickets[i] != null && tickets[i].getFlightId() != null){
+        threeFlights[2].setFlightId("BG-22");
+        threeFlights[2].setOrigin("Shiraz");
+        threeFlights[2].setDestination("Tabriz");
+        threeFlights[2].setDate("1401-12-12");
+        threeFlights[2].setTime("22:30");
+        threeFlights[2].setPrice(1_100_000);
+        threeFlights[2].setSeats(12);
 
-                 System.out.printf("|%-15s|%-15s|%-15s|%-15s|%-15s|%-15d|%-15d\n", tickets[i].getFlightId() , tickets[i].getOrigin() , tickets[i].getDestination() , tickets[i].getDate() , tickets[i].getTime() ,tickets[i].getPrice() , tickets[i].getSeats());
+    }
 
-                }
-            }
-
-        }
 
 
 }
