@@ -273,15 +273,13 @@ public class Admin {
     public boolean findFlight(String flightId , Flight[] flight)
     {
 
-
-
         for (int i = 0; i < 30; i++) {
 
             if (flight[i].getFlightId() != null) {
 
                 if (flightId.equals(flight[i].getFlightId())) {
 
-                    return  true;
+                    return true;
 
                 }
             }

@@ -74,7 +74,7 @@ public class Login {
 
                for (int i = 0; i < 30; i++) {
 
-                    if (users[i] == null )
+                    if (users[i].getName() == null )
                     {
 
                          users[i].setName(name);
@@ -87,7 +87,7 @@ public class Login {
 
                          userAction.passengerMenu(flights,users);
 
-                         break;
+
                     }
 
                }
@@ -205,6 +205,7 @@ public class Login {
 
                return -1;
           }
+
 
           for (int i = 0; i < 30; i++)
           {
