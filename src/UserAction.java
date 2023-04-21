@@ -182,19 +182,28 @@ public class UserAction {
 
     private void ticketCancellation(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
 
-        int i;
-        i = searchTicket(users , flights);
+        int i , j;
+
+        System.out.println("[ Enter the ID of the ticket you want to cancel ]");
+        int ticketId;
+
+        ticketId = cin.nextInt();
+
+        i = searchTicket1(users , flights ,ticketId );
+        j = searchTicket2(users, ticketId);
 
         if (i >= 0) {
 
-            users[Login.loggedInIndex].tickets[i].setTicketId(0);
-            users[Login.loggedInIndex].tickets[i].setFlightId(null);
-            users[Login.loggedInIndex].tickets = null;
+            users[Login.loggedInIndex].tickets[j].setTicketId(0);
+            users[Login.loggedInIndex].tickets[j].setFlightId(null);
+//            users[Login.loggedInIndex].tickets = null;
             System.out.println(Login.done);
             users[Login.loggedInIndex].setBudget(users[Login.loggedInIndex].getBudget()+flights[i].getPrice());
             try{Thread.sleep(500);}catch(InterruptedException e) {};
 
+            passengerMenu(flights , users ,admin , userAction,flightAction);
         }
+
         passengerMenu(flights , users ,admin , userAction,flightAction);
     }
 
@@ -213,10 +222,13 @@ public class UserAction {
 
                 for (int j = 0; j < 15; j++) {
 
-                    if (users[Login.loggedInIndex].tickets[j] != null && users[Login.loggedInIndex].tickets[j].getFlightId().equals(flights[i].getFlightId())) {
+                    if (users[Login.loggedInIndex].tickets[j] != null && users[Login.loggedInIndex].tickets[j].getFlightId() != null) {
 
-                        System.out.printf("|%-15s|%-15s|%-15s|%-15s|%-15s|%-15d|%-15d\n", flights[i].getFlightId(), flights[i].getOrigin(), flights[i].getDestination(), flights[i].getDate(), flights[i].getTime(), flights[i].getPrice(),users[Login.loggedInIndex].tickets[j].getTicketId());
+                        if ( users[Login.loggedInIndex].tickets[j].getFlightId().equals(flights[i].getFlightId())) {
 
+                            System.out.printf("|%-15s|%-15s|%-15s|%-15s|%-15s|%-15d|%-15d\n", flights[i].getFlightId(), flights[i].getOrigin(), flights[i].getDestination(), flights[i].getDate(), flights[i].getTime(), flights[i].getPrice(), users[Login.loggedInIndex].tickets[j].getTicketId());
+
+                        }
                     }
                 }
             }
@@ -233,25 +245,56 @@ public class UserAction {
 
 //    [ Search ticket for cancel]
 
-    private int searchTicket(User[] users , Flight [] flights) {
+    private int searchTicket1(User [] users , Flight [] flights , int ticketId) {
 
-        System.out.println("[ Enter the ID of the ticket you want to cancel ]");
-        String ticketId;
 
-        ticketId = cin.next();
 
         for (int j = 0; j < 15; j++) {
 
-            if (flights[j] != null && flights[j].getFlightId() != null) {
+            if (users[Login.loggedInIndex].tickets[j] != null && users[Login.loggedInIndex].tickets[j].getFlightId() != null) {
 
-                if (flights[j].getFlightId().equals(ticketId)) {
+                if (users[Login.loggedInIndex].tickets[j].getTicketId() == ticketId) {
 
-                    return j;
+                    for (int k = 0; k < 30; k++) {
 
+                        if (flights[k] != null && flights[k].getFlightId() != null) {
+
+                            if (flights[k].getFlightId().equals(users[Login.loggedInIndex].tickets[j].getFlightId())) {
+
+                                return k;
+
+                            }
+                        }
+
+                    }
                 }
             }
 
         }
+
+
+
+        return -1;
+    }
+//  ====================================================================================================================
+
+//    [ Search ticket for cancel]
+
+    private int searchTicket2(User [] users ,  int ticketId) {
+
+
+        for (int j = 0; j < 15; j++) {
+
+            if (users[Login.loggedInIndex].tickets[j] != null && users[Login.loggedInIndex].tickets[j].getFlightId() != null) {
+
+                if (users[Login.loggedInIndex].tickets[j].getTicketId() == ticketId) {
+
+                 return j;
+                }
+            }
+
+        }
+
 
 
         return -1;
