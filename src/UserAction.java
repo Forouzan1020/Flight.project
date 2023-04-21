@@ -183,7 +183,7 @@ public class UserAction {
     private void ticketCancellation(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
 
         int i;
-        i = searchTicket(users);
+        i = searchTicket(users , flights);
 
         if (i >= 0) {
 
@@ -191,6 +191,7 @@ public class UserAction {
             users[Login.loggedInIndex].tickets[i].setFlightId(null);
             users[Login.loggedInIndex].tickets = null;
             System.out.println(Login.done);
+            users[Login.loggedInIndex].setBudget(users[Login.loggedInIndex].getBudget()+flights[i].getPrice());
             try{Thread.sleep(500);}catch(InterruptedException e) {};
 
         }
@@ -232,7 +233,7 @@ public class UserAction {
 
 //    [ Search ticket for cancel]
 
-    private int searchTicket(User[] users) {
+    private int searchTicket(User[] users , Flight [] flights) {
 
         System.out.println("[ Enter the ID of the ticket you want to cancel ]");
         String ticketId;
@@ -240,12 +241,14 @@ public class UserAction {
 
         for (int j = 0; j < 15; j++) {
 
-            if (users[Login.loggedInIndex].tickets[j] != null) {
+            if ( users[Login.loggedInIndex].tickets[j] != null ) {
 
-                if (users[Login.loggedInIndex].tickets[j].equals(ticketId)) {
+                for (int i = 0; i < 30; i++) {
 
-                    return j;
+                    if ( flights[i].equals(ticketId) ) {
 
+                        return j;
+                    }
                 }
             }
         }
