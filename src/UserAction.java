@@ -204,7 +204,7 @@ public class UserAction {
     private void bookedTicket(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
 
 
-        System.out.println("|FlightId       |Origin         |Destination    |Date           |Time           |Price          \n");
+        System.out.println("|FlightId       |Origin         |Destination    |Date           |Time           |Price          |TicketId\n");
 
         for (int i = 0; i < 30; i++) {
 
@@ -214,7 +214,7 @@ public class UserAction {
 
                     if (users[Login.loggedInIndex].tickets[j] != null && users[Login.loggedInIndex].tickets[j].getFlightId().equals(flights[i].getFlightId())) {
 
-                        System.out.printf("|%-15s|%-15s|%-15s|%-15s|%-15s|%-15d\n", flights[i].getFlightId(), flights[i].getOrigin(), flights[i].getDestination(), flights[i].getDate(), flights[i].getTime(), flights[i].getPrice());
+                        System.out.printf("|%-15s|%-15s|%-15s|%-15s|%-15s|%-15d|%-15d\n", flights[i].getFlightId(), flights[i].getOrigin(), flights[i].getDestination(), flights[i].getDate(), flights[i].getTime(), flights[i].getPrice(),users[Login.loggedInIndex].tickets[j].getTicketId());
 
                     }
                 }
