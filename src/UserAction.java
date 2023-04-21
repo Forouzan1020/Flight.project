@@ -102,6 +102,7 @@ public class UserAction {
         int flightIndex;
         String flightId;
 
+
         System.out.println("|FlightId       |Origin         |Destination    |Date           |Time           |Price          |Seats          \n");
 
         for (int i = 0; i < 30; i++) {
@@ -114,45 +115,63 @@ public class UserAction {
         }
 
 
-
         System.out.println("[ Enter the flightId ]");
 
         flightId = cin.next();
 
+
         flightIndex = flightAction.checkFlight(flights, flightId);
 
-        if (flightIndex == -1) {
-            System.out.println("[ Flight not found ]");
-            try{Thread.sleep(500);}catch(InterruptedException e) {};
-            bookedTicket(users ,flights ,admin , userAction,flightAction);
-        }
-
-        if (seats(flightId, flights)) {
+        if (users[Login.loggedInIndex].getBudget() >= flights[flightIndex].getPrice()) {
 
 
-            for (int i = 0; i < 15; i++) {
+            if (flightIndex == -1) {
 
-                if (users[Login.loggedInIndex].tickets[i] == null) {
-
-                    users[Login.loggedInIndex].tickets[i] = new Ticket();
-                    users[Login.loggedInIndex].tickets[i].setTicketId((864200 + Ticket.ticketGeneratorCounter));
-                    users[Login.loggedInIndex].tickets[i].setFlightId(flightId);
-                    users[Login.loggedInIndex].setBudget(users[Login.loggedInIndex].getBudget() - flights[flightIndex].getPrice());
-                    Ticket.ticketGeneratorCounter++;
-                    System.out.println(Login.done);
-                    try{Thread.sleep(500);}catch(InterruptedException e) {};
-                    break;
+                System.out.println("[ Flight not found ]");
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
                 }
-
+                ;
+                bookedTicket(users, flights, admin, userAction, flightAction);
             }
 
-        } else {
+            if (seats(flightId, flights)) {
 
-            System.out.println("[ There are not enough seats ]");
-            try{Thread.sleep(500);}catch(InterruptedException e) {};
+
+                for (int i = 0; i < 15; i++) {
+
+                    if (users[Login.loggedInIndex].tickets[i] == null) {
+
+                        users[Login.loggedInIndex].tickets[i] = new Ticket();
+                        users[Login.loggedInIndex].tickets[i].setTicketId((864200 + Ticket.ticketGeneratorCounter));
+                        users[Login.loggedInIndex].tickets[i].setFlightId(flightId);
+                        users[Login.loggedInIndex].setBudget(users[Login.loggedInIndex].getBudget() - flights[flightIndex].getPrice());
+                        Ticket.ticketGeneratorCounter++;
+                        System.out.println(Login.done);
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                        }
+                        ;
+                        break;
+                    }
+
+                }
+
+            } else {
+
+                System.out.println("[ There are not enough seats ]");
+
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                }
+                ;
+            }
         }
 
-        passengerMenu(flights , users ,admin , userAction,flightAction);
+        passengerMenu(flights, users, admin, userAction, flightAction);
 
     }
 
