@@ -77,7 +77,7 @@ public class Login {
                welcomeMenu(admin ,  userAction ,  flightAction ,  users ,  flights);
           }
 
-          else if ( checkSing(name, pass, users) == -2 )
+          else if ( checkName(name , users) == 2 && checkSing(name, pass, users) == -2 )
           {
 
                for (int i = 0; i < 30; i++) {
