@@ -122,7 +122,7 @@ public class UserAction {
 
         flightIndex = flightAction.checkFlight(flights, flightId);
 
-        if (users[Login.loggedInIndex].getBudget() >= flights[flightIndex].getPrice()) {
+
 
 
             if (flightIndex == -1) {
@@ -135,6 +135,7 @@ public class UserAction {
                 ;
                 bookedTicket(users, flights, admin, userAction, flightAction);
             }
+        if (users[Login.loggedInIndex].getBudget() >= flights[flightIndex].getPrice()) {
 
             if (seats(flightId, flights)) {
 
