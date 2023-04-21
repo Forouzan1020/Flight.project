@@ -2,13 +2,13 @@ import java.util.Scanner;
 
 public class UserAction {
 
-    FlightAction flightAction = new FlightAction();
+//    FlightAction flightAction = new FlightAction();
     Scanner cin = new Scanner(System.in);
 
 
-    public void passengerMenu(Flight[] flights, User[] user) {
+    public void passengerMenu(Flight[] flights, User[] users,  Admin admin , UserAction userAction , FlightAction flightAction ) {
 
-        Login welcome = new Login();
+        Login login = new Login();
 
         int userOption;
 
@@ -20,66 +20,67 @@ public class UserAction {
         switch (userOption) {
 
             case 1: {
-                changePassword(user, flights);
+                changePassword(users ,flights ,admin , userAction,flightAction);
                 break;
             }
 
             case 2: {
-                searchFlight(flights, user);
+                searchFlight(users ,flights ,admin , userAction,flightAction);
                 break;
             }
 
             case 3: {
-                bookingTicket(flights, user);
+                bookingTicket(flights ,users ,admin , userAction,flightAction);
                 break;
             }
 
             case 4: {
-                ticketCancellation(flights, user);
+                ticketCancellation(users ,flights ,admin , userAction,flightAction);
                 break;
             }
 
             case 5: {
-                bookedTicket(flights, user);
+                bookedTicket(users ,flights ,admin , userAction,flightAction);
                 break;
             }
 
             case 6: {
-                addCharge(flights, user);
+                addCharge(users ,flights ,admin , userAction,flightAction);
                 break;
             }
 
             case 0: {
-                welcome.welcomeMenu();
+
+                login.welcomeMenu(admin ,  userAction ,  flightAction ,  users ,  flights);
                 break;
             }
 
-            default: passengerMenu(flights,user);
+            default: passengerMenu(flights , users ,admin , userAction,flightAction);
 
         }
-        passengerMenu(flights , user);
+        passengerMenu(flights , users ,admin , userAction,flightAction);
 
     }
 //  ====================================================================================================================
 
 //    [ Change Password ]
 
-    private void changePassword(User[] user, Flight[] flights) {
+    private void changePassword(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction ) {
         System.out.println("[ Enter new password ]");
         String newPass;
         newPass = cin.next();
 
-        user[Login.loggedInIndex].setPass(newPass);
+        users[Login.loggedInIndex].setPass(newPass);
         System.out.println(Login.done);
         try{Thread.sleep(500);}catch(InterruptedException e) {};
-        passengerMenu(flights, user);
+        passengerMenu(flights , users ,admin , userAction,flightAction);
 
     }
 //  ====================================================================================================================
 
 //    [ Add charge ]
 
-    private void addCharge(Flight[] flight, User[] users) {
+    private void addCharge(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
 
         System.out.println("[ Enter the amount you want to charge ]");
 
@@ -89,7 +90,7 @@ public class UserAction {
         System.out.println("[ Enter X if you want back ]");
         if (cin.next().equals("X")){
 
-            passengerMenu(flight , users);
+            passengerMenu(flights , users ,admin , userAction,flightAction);
         }
 
     }
@@ -97,7 +98,7 @@ public class UserAction {
 
 //    [ Booking ticket ]
 
-    private void bookingTicket(Flight[] flights, User[] users) {
+    private void bookingTicket(Flight[] flights, User[] users, Admin admin , UserAction userAction , FlightAction flightAction) {
         int flightIndex;
         String flightId;
 
@@ -123,7 +124,7 @@ public class UserAction {
         if (flightIndex == -1) {
             System.out.println("[ Flight not found ]");
             try{Thread.sleep(500);}catch(InterruptedException e) {};
-            bookedTicket(flights, users);
+            bookedTicket(users ,flights ,admin , userAction,flightAction);
         }
 
         if (seats(flightId, flights)) {
@@ -151,7 +152,7 @@ public class UserAction {
             try{Thread.sleep(500);}catch(InterruptedException e) {};
         }
 
-        passengerMenu(flights, users);
+        passengerMenu(flights , users ,admin , userAction,flightAction);
 
     }
 
@@ -159,7 +160,7 @@ public class UserAction {
 
 //  [ Ticket cancellation ]
 
-    private void ticketCancellation(Flight[] flights, User[] users) {
+    private void ticketCancellation(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
 
         int i;
         i = searchTicket(users);
@@ -173,14 +174,14 @@ public class UserAction {
             try{Thread.sleep(500);}catch(InterruptedException e) {};
 
         }
-        passengerMenu(flights, users);
+        passengerMenu(flights , users ,admin , userAction,flightAction);
     }
 
 //  ====================================================================================================================
 
 //    [ Booked tickets ]
 
-    private void bookedTicket(Flight[] flights, User[] users) {
+    private void bookedTicket(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
 
 
         System.out.println("|FlightId       |Origin         |Destination    |Date           |Time           |Price          \n");
@@ -202,7 +203,7 @@ public class UserAction {
         System.out.println("[ Enter X if you want back ]");
         if (cin.next().equals("X")){
 
-            passengerMenu(flights , users);
+            passengerMenu(flights , users ,admin , userAction,flightAction);
         }
 
     }
@@ -259,7 +260,7 @@ public class UserAction {
 
 //    [ Search flight ]
 
-    private void searchFlight(Flight[] flights, User[] users) {
+    private void searchFlight(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
 
         System.out.println("|FlightId       |Origin         |Destination    |Date           |Time           |Price          |Seats          \n");
 
@@ -276,56 +277,56 @@ public class UserAction {
         switch (cin.nextInt()){
             case 1:{
 
-            printFlightIdS(flights , users);
-            break;
+                printFlightIdS(users ,flights ,admin , userAction,flightAction);
+                break;
 
             }
             case 2:{
 
-                printOriginS(flights , users);
+                printOriginS(users ,flights ,admin , userAction,flightAction);
                 break;
 
             }
             case 3:{
 
-                printDestinationS(flights , users);
+                printDestinationS(users ,flights ,admin , userAction,flightAction);
                 break;
             }
             case 4:{
 
-                printDateS(flights , users);
+                printDateS(users ,flights ,admin , userAction,flightAction);
                 break;
 
             }
             case 5:{
 
-                printTimeS(flights, users);
+                printTimeS(users ,flights ,admin , userAction,flightAction);
                 break;
 
             }
             case 6:{
 
-                printPriceS(flights , users);
+                printPriceS(users ,flights ,admin , userAction,flightAction);
                 break;
             }
             case 7:{
 
-                printSeatsS(flights , users);
+                printSeatsS( users ,flights ,admin , userAction,flightAction);
                 break;
             }
             case 0:{
 
-            passengerMenu(flights , users);
-            break;
+                passengerMenu(flights , users ,admin , userAction,flightAction);
+                break;
 
-            } default:searchFlight(flights , users);
+            } default:searchFlight(users , flights   ,admin , userAction,flightAction);
         }
     }
 //  ====================================================================================================================
 
 //    [ Sort by flightId ]
 
-    public  void printFlightIdS(Flight [] flights ,User [] users ){
+    public  void printFlightIdS(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction){
 
         System.out.println("[ Enter the flightId ]");
         String flightId;
@@ -347,14 +348,14 @@ public class UserAction {
         System.out.println("[ Enter X if you want back ]");
         if (cin.next().equals("X")){
 
-            searchFlight(flights , users);
+            searchFlight( users ,flights ,admin , userAction,flightAction);
         }
     }
 //  ====================================================================================================================
 
 //    [ Sort by origin ]
 
-    public  void printOriginS(Flight [] flights ,User [] users ) {
+    public  void printOriginS(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction ) {
 
 
         System.out.println("[ Enter the origin ]");
@@ -379,7 +380,7 @@ public class UserAction {
         System.out.println("[ Enter X if you want back ]");
         if (cin.next().equals("X")){
 
-            searchFlight(flights , users);
+            searchFlight(users ,flights , admin , userAction,flightAction);
         }
 
     }
@@ -388,7 +389,7 @@ public class UserAction {
 
 //    [ Sort by destination ]
 
-    public  void printDestinationS(Flight [] flights ,User [] users ) {
+    public  void printDestinationS(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction ) {
 
 
         System.out.println("[ Enter the destination ]");
@@ -413,7 +414,7 @@ public class UserAction {
         System.out.println("[ Enter X if you want back ]");
         if (cin.next().equals("X")){
 
-            searchFlight(flights , users);
+            searchFlight( users ,flights ,admin , userAction,flightAction);
         }
 
     }
@@ -421,7 +422,7 @@ public class UserAction {
 
 //    [ Sort by date ]
 
-    public  void printDateS(Flight [] flights ,User [] users ) {
+    public  void printDateS(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction ) {
 
 
         System.out.println("[ Enter the date ]");
@@ -445,7 +446,7 @@ public class UserAction {
         System.out.println("[ Enter X if you want back ]");
         if (cin.next().equals("X")){
 
-            searchFlight(flights , users);
+            searchFlight(users ,flights , admin , userAction,flightAction);
         }
 
     }
@@ -454,7 +455,7 @@ public class UserAction {
 
 //    [ Sort by time ]
 
-    public  void printTimeS(Flight [] flights ,User [] users ) {
+    public  void printTimeS(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction ) {
 
 
         System.out.println("[ Enter the time ]");
@@ -478,7 +479,7 @@ public class UserAction {
         System.out.println("[ Enter X if you want back ]");
         if (cin.next().equals("X")){
 
-            searchFlight(flights , users);
+            searchFlight(users ,flights , admin , userAction,flightAction);
         }
 
     }
@@ -487,7 +488,7 @@ public class UserAction {
 
 //    [ Sort by price ]
 
-    public  void printPriceS(Flight [] flights ,User [] users ) {
+    public  void printPriceS(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction ) {
 
 
         System.out.println("[ Enter the time ]");
@@ -514,7 +515,7 @@ public class UserAction {
         System.out.println("[ Enter X if you want back ]");
         if (cin.next().equals("X")){
 
-            searchFlight(flights , users);
+            searchFlight(users ,flights , admin , userAction,flightAction);
         }
 
     }
@@ -522,7 +523,7 @@ public class UserAction {
 
 //    [ Sort by time ]
 
-    public  void printSeatsS(Flight [] flights ,User [] users ) {
+    public  void printSeatsS(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction ) {
 
 
         System.out.println("[ Enter the seats ]");
@@ -549,7 +550,7 @@ public class UserAction {
         System.out.println("[ Enter X if you want back ]");
         if (cin.next().equals("X")){
 
-            searchFlight(flights , users);
+            searchFlight(users ,flights , admin , userAction,flightAction);
         }
     }
 

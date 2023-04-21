@@ -2,12 +2,12 @@ import java.util.Scanner;
 
 public class Admin {
 
-    FlightAction flightAction = new FlightAction();
+//    FlightAction flightAction = new FlightAction();
 
     Scanner cin = new Scanner(System.in);
 
 
-    public void adminMenu( Flight[] flight) {
+    public void adminMenu(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
 
 
         System.out.println("[ Admin menu option ] \n\n");
@@ -18,13 +18,13 @@ public class Admin {
         switch (optionAdmin) {
             case 1: {
 
-                addFlight(flight);
+                addFlight(users ,flights ,admin , userAction,flightAction);
                 break;
 
             }
             case 2: {
 
-                editFlight(flight);
+                editFlight(users ,flights ,admin , userAction,flightAction);
                 break;
 
             }
@@ -32,14 +32,14 @@ public class Admin {
 
             case 3: {
 
-                removeFlight(flight);
+                removeFlight(users ,flights ,admin , userAction,flightAction);
                 break;
 
             }
 
             case 4: {
 
-                printSchedules(flight);
+                printSchedules(users ,flights ,admin , userAction,flightAction);
                 break;
 
             }
@@ -50,117 +50,119 @@ public class Admin {
                 break;
 
             } case 0:{
+
                 Login login = new Login();
-                login.welcomeMenu();
+
+                login.welcomeMenu(admin ,  userAction ,  flightAction ,  users ,  flights);
                 break;
             }
-            default:adminMenu(flight);
+            default:adminMenu(users ,flights ,admin , userAction,flightAction);
 
         }
-        adminMenu(flight);
+        adminMenu(users ,flights ,admin , userAction,flightAction);
 
     }
 
 //  ====================================================================================================================
 //  [ Edit flight ]
 
-    private void editFlight(Flight[] flight) {
+    private void editFlight(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
 
-    String flightChange ;
+        String flightChange ;
 
-    int optionUpdate;
+        int optionUpdate;
 
-    System.out.println("[ Which flight do you want to change ]");
+        System.out.println("[ Which flights do you want to change ]");
 
-    flightChange =cin.next();
-
-
-        if(findFlight(flightChange, flight)) {
+        flightChange =cin.next();
 
 
-        for (int i = 0; i < 30; i++) {
-
-            if (flight[i] != null) {
-
-                if (flightChange.equals(flight[i].getFlightId())) {
+        if(findFlight(flightChange, flights)) {
 
 
-                    System.out.println("[ Which feature do you want to change ] \n\n [1] FlightId \n [2] Origin \n [3] Destination \n [4] Date \n [5] Time \n [6] Price \n [7] Seats \n [0] Back");
+            for (int i = 0; i < 30; i++) {
 
-                    optionUpdate = cin.nextInt();
+                if (flights[i] != null) {
 
-                    switch (optionUpdate) {
-                        case 1: {
-                            System.out.println("[ Enter new FlightId ]");
-                            flight[i].setFlightId(cin.next());
-                            System.out.println(Login.done);
-                            break;
+                    if (flightChange.equals(flights[i].getFlightId())) {
+
+
+                        System.out.println("[ Which feature do you want to change ] \n\n [1] FlightId \n [2] Origin \n [3] Destination \n [4] Date \n [5] Time \n [6] Price \n [7] Seats \n [0] Back");
+
+                        optionUpdate = cin.nextInt();
+
+                        switch (optionUpdate) {
+                            case 1: {
+                                System.out.println("[ Enter new FlightId ]");
+                                flights[i].setFlightId(cin.next());
+                                System.out.println(Login.done);
+                                break;
+                            }
+
+                            case 2: {
+                                System.out.println("[ Enter new Origin ]");
+                                flights[i].setOrigin(cin.next());
+                                System.out.println(Login.done);
+                                break;
+                            }
+                            case 3: {
+                                System.out.println("[ Enter new Destination ]");
+                                flights[i].setDestination(cin.next());
+                                System.out.println(Login.done);
+                                break;
+                            }
+                            case 4: {
+                                System.out.println("[ Enter new Date ]");
+                                flights[i].setDate(cin.next());
+                                System.out.println(Login.done);
+                                break;
+                            }
+                            case 5: {
+                                System.out.println("[ Enter new Time ]");
+                                flights[i].setTime(cin.next());
+                                System.out.println(Login.done);
+                                break;
+                            }
+                            case 6: {
+                                System.out.println("[ Enter new Price ]");
+                                flights[i].setPrice(cin.nextInt());
+                                System.out.println(Login.done);
+                                break;
+                            }
+                            case 7: {
+                                System.out.println("[ Enter new Seats ]");
+                                flights[i].setSeats(cin.nextInt());
+                                System.out.println(Login.done);
+                                break;
+                            }
+                            case 0:{
+                                adminMenu(users ,flights ,admin , userAction,flightAction);
+                                break;
+                            }
+                            default:editFlight(users ,flights ,admin , userAction,flightAction);
                         }
 
-                        case 2: {
-                            System.out.println("[ Enter new Origin ]");
-                            flight[i].setOrigin(cin.next());
-                            System.out.println(Login.done);
-                            break;
-                        }
-                        case 3: {
-                            System.out.println("[ Enter new Destination ]");
-                            flight[i].setDestination(cin.next());
-                            System.out.println(Login.done);
-                            break;
-                        }
-                        case 4: {
-                            System.out.println("[ Enter new Date ]");
-                            flight[i].setDate(cin.next());
-                            System.out.println(Login.done);
-                            break;
-                        }
-                        case 5: {
-                            System.out.println("[ Enter new Time ]");
-                            flight[i].setTime(cin.next());
-                            System.out.println(Login.done);
-                            break;
-                        }
-                        case 6: {
-                            System.out.println("[ Enter new Price ]");
-                            flight[i].setPrice(cin.nextInt());
-                            System.out.println(Login.done);
-                            break;
-                        }
-                        case 7: {
-                            System.out.println("[ Enter new Seats ]");
-                            flight[i].setSeats(cin.nextInt());
-                            System.out.println(Login.done);
-                            break;
-                        }
-                        case 0:{
-                            adminMenu(flight);
-                            break;
-                        }
-                        default:editFlight(flight);
+                        adminMenu(users ,flights ,admin , userAction,flightAction);
                     }
-
-                    adminMenu(flight);
                 }
             }
+
+
+        } else
+
+        {
+            System.out.println("[ Not found ]");
+            try{Thread.sleep(500);}catch(InterruptedException e) {};
+            editFlight(users ,flights ,admin , userAction,flightAction);
         }
 
 
-    } else
-
-    {
-        System.out.println("[ Not found ]");
-        try{Thread.sleep(500);}catch(InterruptedException e) {};
-        editFlight(flight);
     }
-
-
-}
 
 //  ====================================================================================================================
 //  [ Add flight ]
 
-    private void addFlight(Flight[] flight ) {
+    private void addFlight(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction ) {
 
 
         String flightId;
@@ -171,58 +173,58 @@ public class Admin {
 
         if (flightId.equals("X")) {
 
-        adminMenu(flight);
+            adminMenu(users ,flights ,admin , userAction,flightAction);
 
         }
-        else if (flightAction.checkFlight(flight , flightId) == -1)
+        else if (flightAction.checkFlight(flights , flightId) == -1)
         {
 
 
             for (int i = 0; i < 30; i++)
             {
 
-                if (flight[i].getFlightId() == null)
+                if (flights[i].getFlightId() == null)
                 {
 
-                    flight[i].setFlightId(flightId);
+                    flights[i].setFlightId(flightId);
 
                     System.out.println("[ Enter origin ]");
 
-                    flight[i].setOrigin(cin.next());
+                    flights[i].setOrigin(cin.next());
 
                     System.out.println(" [ Enter destination ]");
 
-                    flight[i].setDestination(cin.next());
+                    flights[i].setDestination(cin.next());
 
                     System.out.println("[ Enter date ]");
 
-                    flight[i].setDate(cin.next());
+                    flights[i].setDate(cin.next());
 
                     System.out.println(" [ Enter time ]");
 
-                    flight[i].setTime(cin.next());
+                    flights[i].setTime(cin.next());
 
                     System.out.println("[ Enter price ]");
 
-                    flight[i].setPrice(cin.nextInt());
+                    flights[i].setPrice(cin.nextInt());
 
                     System.out.println("[ Enter seats ]");
 
-                    flight[i].setSeats(cin.nextInt());
+                    flights[i].setSeats(cin.nextInt());
 
                     System.out.println(Login.done);
 
                     try{Thread.sleep(500);}catch(InterruptedException e) {};
-                    adminMenu(flight);
+                    adminMenu(users ,flights ,admin , userAction,flightAction);
                 }
             }
         }
 
         else
         {
-            System.out.println("[ This flight is exist ]");
+            System.out.println("[ This flights is exist ]");
             try{Thread.sleep(500);}catch(InterruptedException e) {};
-            addFlight(flight);
+            addFlight(users ,flights ,admin , userAction,flightAction);
         }
     }
 
@@ -230,7 +232,7 @@ public class Admin {
 //  [ Remove flight ]
 
 
-    private void removeFlight(Flight[] flight) {
+    private void removeFlight(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
 
         String flightRemove;
 
@@ -238,21 +240,21 @@ public class Admin {
 
         flightRemove = cin.next();
 
-        if (findFlight(flightRemove, flight)) {
+        if (findFlight(flightRemove, flights)) {
 
             for (int i = 0; i < 30; i++) {
-                if (flight[i].getFlightId().equals(flightRemove)) {
+                if (flights[i].getFlightId().equals(flightRemove)) {
 
-                    flight[i].setFlightId(null);
-                    flight[i].setOrigin(null);
-                    flight[i].setDestination(null);
-                    flight[i].setDate(null);
-                    flight[i].setTime(null);
-                    flight[i].setPrice(0);
-                    flight[i].setSeats(0);
+                    flights[i].setFlightId(null);
+                    flights[i].setOrigin(null);
+                    flights[i].setDestination(null);
+                    flights[i].setDate(null);
+                    flights[i].setTime(null);
+                    flights[i].setPrice(0);
+                    flights[i].setSeats(0);
                     System.out.println(Login.done);
                     try{Thread.sleep(500);}catch(InterruptedException e) {};
-                    adminMenu(flight);
+                    adminMenu(users ,flights ,admin , userAction,flightAction);
                 }
             }
 
@@ -260,7 +262,7 @@ public class Admin {
         } else {
             System.out.println("[ This ticket does not exist ]");
             try{Thread.sleep(500);}catch(InterruptedException e) {};
-            adminMenu(flight);
+            adminMenu(users ,flights ,admin , userAction,flightAction);
         }
 
     }
@@ -293,7 +295,7 @@ public class Admin {
 
 //  [ Print flight schedules ]
 
-    public void printSchedules( Flight[] flights) {
+    public void printSchedules( User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
         Scanner cin = new Scanner(System.in);
 
         System.out.println("|FlightId       |Origin         |Destination    |Date           |Time           |Price          |Seats          \n");
@@ -311,10 +313,11 @@ public class Admin {
 
         if (cin.next().equals("X") ) {
 
-           adminMenu(flights);
+            adminMenu(users ,flights ,admin , userAction,flightAction);
         }
 
     }
 
 
 }
+

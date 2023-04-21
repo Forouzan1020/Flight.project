@@ -2,14 +2,17 @@ import java.util.Scanner;
 
 public class Login {
 
-     Admin admin = new Admin();
-     UserAction userAction = new UserAction();
-     FlightAction flightAction = new FlightAction();
-     User[] users = new User[30];
-     Flight[] flights = new Flight[30];
+//     Admin admin = new Admin();
+//     UserAction userAction = new UserAction();
+//     FlightAction flightAction = new FlightAction();
+//     User[] users = new User[30];
+//     Flight[] flights = new Flight[30];
+//
      Scanner cin = new Scanner(System.in);
      public static int loggedInIndex;
      public static String done = "done";
+
+
 
 //  ====================================================================================================================
 
@@ -17,10 +20,15 @@ public class Login {
 
      public void start() {
 
+          Admin admin = new Admin();
+          UserAction userAction = new UserAction();
+          FlightAction flightAction = new FlightAction();
+          User[] users = new User[30];
+          Flight[] flights = new Flight[30];
           newUser(users);
           newFlight(flights);
           flightAction.flightDefault(flights);
-          welcomeMenu();
+          welcomeMenu(admin ,  userAction ,  flightAction ,  users ,  flights);
 
      }
 
@@ -28,7 +36,7 @@ public class Login {
 
 //  [ Sing up and sing in ]
 
-     public void welcomeMenu() {
+     public void welcomeMenu(Admin admin , UserAction userAction , FlightAction flightAction , User [] users , Flight [] flights) {
 
           int optionSing;
 
@@ -39,19 +47,19 @@ public class Login {
           switch (optionSing) {
 
                case 1:{
-                    signIn();
+                    signIn(admin ,  userAction ,  flightAction ,  users ,  flights);
                     break;}
                case 2:{
-                    signUp();
+                    signUp(admin ,  userAction ,  flightAction ,  users ,  flights);
                     break;}
-               default:welcomeMenu();
+               default:welcomeMenu(admin ,  userAction ,  flightAction ,  users ,  flights);
           }
-          welcomeMenu();
+          welcomeMenu(admin ,  userAction ,  flightAction ,  users ,  flights);
      }
 
 //  ====================================================================================================================
 
-     private void signUp() {
+     private void signUp(Admin admin , UserAction userAction , FlightAction flightAction , User [] users , Flight [] flights) {
 
           String name, pass;
 
@@ -66,7 +74,7 @@ public class Login {
 
           if ( pass.equals("X") ){
 
-               welcomeMenu();
+               welcomeMenu(admin ,  userAction ,  flightAction ,  users ,  flights);
           }
 
           else if ( checkSing(name, pass, users) == -2 )
@@ -85,8 +93,8 @@ public class Login {
 
                          System.out.println(Login.done);
 
-                         userAction.passengerMenu(flights,users);
-
+                         userAction.passengerMenu(flights ,users ,admin , userAction,flightAction);
+                         break;
 
                     }
 
@@ -99,7 +107,7 @@ public class Login {
 
                try{Thread.sleep(500);}catch(InterruptedException e) {};
 
-               welcomeMenu();
+               welcomeMenu( admin ,  userAction ,  flightAction ,  users ,  flights);
           }
 
 
@@ -109,7 +117,7 @@ public class Login {
 
 //  ====================================================================================================================
 
-     private void signIn()
+     private void signIn(Admin admin , UserAction userAction , FlightAction flightAction , User [] users , Flight [] flights)
      {
           String name, pass;
 
@@ -130,7 +138,7 @@ public class Login {
 
                if (checkSing(name, pass, users) == -1) {
 
-                    admin.adminMenu( flights);
+                    admin.adminMenu(users ,flights ,admin , userAction,flightAction);
                }
 
                else if (checkSing(name, pass, users) == -2)
@@ -138,14 +146,14 @@ public class Login {
 
                     System.out.println("[ your password is not correct ]");
                     try{Thread.sleep(500);}catch(InterruptedException e) {};
-                    welcomeMenu();
+                    welcomeMenu(admin ,  userAction ,  flightAction ,  users ,  flights);
 
                }
 
                else
                {
                     loggedInIndex=checkSing(name, pass, users);
-                    userAction.passengerMenu( flights, users);
+                    userAction.passengerMenu(flights ,users ,admin , userAction,flightAction);
 
                }
 
@@ -153,7 +161,7 @@ public class Login {
           {
                System.out.println("[ This username not found ]");
                try{Thread.sleep(500);}catch(InterruptedException e) {};
-               welcomeMenu();
+               welcomeMenu(admin ,  userAction ,  flightAction ,  users ,  flights);
           }
 
 
