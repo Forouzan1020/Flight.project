@@ -237,20 +237,16 @@ public class UserAction {
 
         System.out.println("[ Enter the ID of the ticket you want to cancel ]");
         String ticketId;
+
         ticketId = cin.next();
 
         for (int j = 0; j < 15; j++) {
 
-            if ( users[Login.loggedInIndex].tickets[j] != null ) {
+            if (flights[j].getFlightId().equals(ticketId)){
+                return j;
 
-                for (int i = 0; i < 30; i++) {
-
-                    if ( flights[i].equals(ticketId) ) {
-
-                        return j;
-                    }
-                }
             }
+
         }
 
 
