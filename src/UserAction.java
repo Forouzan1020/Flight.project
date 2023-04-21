@@ -142,7 +142,7 @@ public class UserAction {
 
                 for (int i = 0; i < 15; i++) {
 
-                    if (users[Login.loggedInIndex].tickets[i] == null) {
+                    if (users[Login.loggedInIndex].tickets[i].getFlightId() == null) {
 
                         users[Login.loggedInIndex].tickets[i] = new Ticket();
                         users[Login.loggedInIndex].tickets[i].setTicketId((864200 + Ticket.ticketGeneratorCounter));
