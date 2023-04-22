@@ -68,7 +68,7 @@ public class Login {
 
           name = cin.next();
 
-          System.out.println("[ Enter your pass ] \n [ Or if you want back enter X ] ");
+          System.out.println("[ Enter your pass ] \n[ Or if you want back enter X ] ");
 
           pass = cin.next();
 

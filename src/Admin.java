@@ -167,7 +167,7 @@ public class Admin {
 
         String flightId;
 
-        System.out.println("[ Enter flightId ] \n [ If you want back enter X ]");
+        System.out.println("[ Enter flightId ] \n[ If you want back enter X ]");
 
         flightId = cin.next();
 

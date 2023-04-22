@@ -87,7 +87,7 @@ public class UserAction {
         users[Login.loggedInIndex].setBudget(users[Login.loggedInIndex].getBudget() + cin.nextInt());
         System.out.println(Login.done);
         System.out.printf("[ Your budget : %d ]" , users[Login.loggedInIndex].getBudget());
-        System.out.println("[ Enter X if you want back ]");
+        System.out.println("\n[ Enter X if you want back ]");
         if (cin.next().equals("X")){
 
             passengerMenu(flights , users ,admin , userAction,flightAction);
@@ -142,13 +142,14 @@ public class UserAction {
 
                 for (int i = 0; i < 15; i++) {
 
-                    if (users[Login.loggedInIndex].tickets[i].getFlightId() == null) {
+                    if (users[Login.loggedInIndex].tickets[i] == null || users[Login.loggedInIndex].tickets[i].getFlightId() == null) {
 
                         users[Login.loggedInIndex].tickets[i] = new Ticket();
                         users[Login.loggedInIndex].tickets[i].setTicketId((864200 + Ticket.ticketGeneratorCounter));
                         users[Login.loggedInIndex].tickets[i].setFlightId(flightId);
                         users[Login.loggedInIndex].setBudget(users[Login.loggedInIndex].getBudget() - flights[flightIndex].getPrice());
                         Ticket.ticketGeneratorCounter++;
+                        flights[flightIndex].setSeats(flights[flightIndex].getSeats()-1);
                         System.out.println(Login.done);
                         try {
                             Thread.sleep(500);
@@ -196,9 +197,9 @@ public class UserAction {
 
             users[Login.loggedInIndex].tickets[j].setTicketId(0);
             users[Login.loggedInIndex].tickets[j].setFlightId(null);
-//            users[Login.loggedInIndex].tickets = null;
             System.out.println(Login.done);
             users[Login.loggedInIndex].setBudget(users[Login.loggedInIndex].getBudget()+flights[i].getPrice());
+            flights[i].setSeats(flights[i].getSeats()+1);
             try{Thread.sleep(500);}catch(InterruptedException e) {};
 
             passengerMenu(flights , users ,admin , userAction,flightAction);
