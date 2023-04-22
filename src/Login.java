@@ -2,12 +2,8 @@ import java.util.Scanner;
 
 public class Login {
 
-//     Admin admin = new Admin();
-//     UserAction userAction = new UserAction();
-//     FlightAction flightAction = new FlightAction();
-//     User[] users = new User[30];
-//     Flight[] flights = new Flight[30];
-//
+
+
      Scanner cin = new Scanner(System.in);
      public static int loggedInIndex;
      public static String done = "done";

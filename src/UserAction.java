@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class UserAction {
 
-//    FlightAction flightAction = new FlightAction();
     Scanner cin = new Scanner(System.in);
 
 
@@ -82,8 +81,8 @@ public class UserAction {
 
     private void addCharge(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
 
+        System.out.printf("[ Your budget : %d ]" , users[Login.loggedInIndex].getBudget());
         System.out.println("[ Enter the amount you want to charge ]");
-
         users[Login.loggedInIndex].setBudget(users[Login.loggedInIndex].getBudget() + cin.nextInt());
         System.out.println(Login.done);
         System.out.printf("[ Your budget : %d ]" , users[Login.loggedInIndex].getBudget());
@@ -183,23 +182,44 @@ public class UserAction {
 
     private void ticketCancellation(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
 
-        int i , j;
+        int l , k;
+
+
+        System.out.println("|FlightId       |Origin         |Destination    |Date           |Time           |Price          |TicketId\n");
+
+        for (int i = 0; i < 30; i++) {
+
+            if (flights[i] != null && flights[i].getFlightId() != null) {
+
+                for (int j = 0; j < 15; j++) {
+
+                    if (users[Login.loggedInIndex].tickets[j] != null && users[Login.loggedInIndex].tickets[j].getFlightId() != null) {
+
+                        if ( users[Login.loggedInIndex].tickets[j].getFlightId().equals(flights[i].getFlightId())) {
+
+                            System.out.printf("|%-15s|%-15s|%-15s|%-15s|%-15s|%-15d|%-15d\n", flights[i].getFlightId(), flights[i].getOrigin(), flights[i].getDestination(), flights[i].getDate(), flights[i].getTime(), flights[i].getPrice(), users[Login.loggedInIndex].tickets[j].getTicketId());
+
+                        }
+                    }
+                }
+            }
+        }
 
         System.out.println("[ Enter the ID of the ticket you want to cancel ]");
         int ticketId;
 
         ticketId = cin.nextInt();
 
-        i = searchTicket1(users , flights ,ticketId );
-        j = searchTicket2(users, ticketId);
+        l = searchTicket1(users , flights ,ticketId );
+        k = searchTicket2(users, ticketId);
 
-        if (i >= 0) {
+        if (l >= 0) {
 
-            users[Login.loggedInIndex].tickets[j].setTicketId(0);
-            users[Login.loggedInIndex].tickets[j].setFlightId(null);
+            users[Login.loggedInIndex].tickets[k].setTicketId(0);
+            users[Login.loggedInIndex].tickets[k].setFlightId(null);
             System.out.println(Login.done);
-            users[Login.loggedInIndex].setBudget(users[Login.loggedInIndex].getBudget()+flights[i].getPrice());
-            flights[i].setSeats(flights[i].getSeats()+1);
+            users[Login.loggedInIndex].setBudget(users[Login.loggedInIndex].getBudget()+flights[l].getPrice());
+            flights[l].setSeats(flights[l].getSeats()+1);
             try{Thread.sleep(500);}catch(InterruptedException e) {};
 
             passengerMenu(flights , users ,admin , userAction,flightAction);

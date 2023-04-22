@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Admin {
 
-//    FlightAction flightAction = new FlightAction();
 
     Scanner cin = new Scanner(System.in);
 
@@ -42,13 +41,6 @@ public class Admin {
                 printSchedules(users ,flights ,admin , userAction,flightAction);
                 break;
 
-            }
-
-            case 5: {
-                Login login = new Login();
-                login.start();
-                break;
-
             } case 0:{
 
                 Login login = new Login();
@@ -71,6 +63,17 @@ public class Admin {
         String flightChange ;
 
         int optionUpdate;
+
+        System.out.println("|FlightId       |Origin         |Destination    |Date           |Time           |Price          |Seats          \n");
+
+        for (int i = 0; i < 30; i++) {
+
+            if (flights[i] != null && flights[i].getFlightId() != null) {
+
+                System.out.printf("|%-15s|%-15s|%-15s|%-15s|%-15s|%-15d|%-15d\n", flights[i].getFlightId(), flights[i].getOrigin(), flights[i].getDestination(), flights[i].getDate(), flights[i].getTime(), flights[i].getPrice(), flights[i].getSeats());
+
+            }
+        }
 
         System.out.println("[ Which flights do you want to change ]");
 
@@ -167,6 +170,17 @@ public class Admin {
 
         String flightId;
 
+        System.out.println("|FlightId       |Origin         |Destination    |Date           |Time           |Price          |Seats          \n");
+
+        for (int i = 0; i < 30; i++) {
+
+            if (flights[i] != null && flights[i].getFlightId() != null) {
+
+                System.out.printf("|%-15s|%-15s|%-15s|%-15s|%-15s|%-15d|%-15d\n", flights[i].getFlightId(), flights[i].getOrigin(), flights[i].getDestination(), flights[i].getDate(), flights[i].getTime(), flights[i].getPrice(), flights[i].getSeats());
+
+            }
+        }
+
         System.out.println("[ Enter flightId ] \n[ If you want back enter X ]");
 
         flightId = cin.next();
@@ -236,6 +250,17 @@ public class Admin {
 
         String flightRemove;
 
+        System.out.println("|FlightId       |Origin         |Destination    |Date           |Time           |Price          |Seats          \n");
+
+        for (int i = 0; i < 30; i++) {
+
+            if (flights[i] != null && flights[i].getFlightId() != null) {
+
+                System.out.printf("|%-15s|%-15s|%-15s|%-15s|%-15s|%-15d|%-15d\n", flights[i].getFlightId(), flights[i].getOrigin(), flights[i].getDestination(), flights[i].getDate(), flights[i].getTime(), flights[i].getPrice(), flights[i].getSeats());
+
+            }
+        }
+
         System.out.println("[ Enter the flightId you want remove ]");
 
         flightRemove = cin.next();
@@ -296,7 +321,7 @@ public class Admin {
 //  [ Print flight schedules ]
 
     public void printSchedules( User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
-        Scanner cin = new Scanner(System.in);
+
 
         System.out.println("|FlightId       |Origin         |Destination    |Date           |Time           |Price          |Seats          \n");
 
