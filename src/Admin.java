@@ -75,9 +75,15 @@ public class Admin {
             }
         }
 
-        System.out.println("[ Which flights do you want to change ]");
+        System.out.println("[ Which flights do you want to change ]\n[ Enter X if you want back ]");
 
         flightChange =cin.next();
+
+        if (flightChange.equals("X")) {
+
+            adminMenu(users ,flights ,admin , userAction,flightAction);
+
+        }
 
 
         if(findFlight(flightChange, flights)) {
@@ -261,9 +267,15 @@ public class Admin {
             }
         }
 
-        System.out.println("[ Enter the flightId you want remove ]");
+        System.out.println("[ Enter the flightId you want remove ]\n[ Enter X if you want back ]");
 
         flightRemove = cin.next();
+
+        if (flightRemove.equals("X")) {
+
+            adminMenu(users ,flights ,admin , userAction,flightAction);
+
+        }
 
         if (findFlight(flightRemove, flights)) {
 
@@ -285,9 +297,9 @@ public class Admin {
 
 
         } else {
-            System.out.println("[ This ticket does not exist ]");
+            System.out.println("[ This flightId does not exist ]");
             try{Thread.sleep(500);}catch(InterruptedException e) {};
-            adminMenu(users ,flights ,admin , userAction,flightAction);
+            removeFlight(users ,flights ,admin , userAction,flightAction);
         }
 
     }

@@ -65,7 +65,13 @@ public class UserAction {
 //    [ Change Password ]
 
     private void changePassword(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction ) {
-        System.out.println("[ Enter new password ]");
+        System.out.println("[ Enter new password ]\n[ Enter X if you want back ]");
+
+        if (cin.next().equals("X")){
+
+            passengerMenu(flights , users ,admin , userAction,flightAction);
+        }
+
         String newPass;
         newPass = cin.next();
 
@@ -81,8 +87,7 @@ public class UserAction {
 
     private void addCharge(User[] users, Flight[] flights, Admin admin , UserAction userAction , FlightAction flightAction) {
 
-        System.out.printf("[ Your budget : %d ]" , users[Login.loggedInIndex].getBudget());
-        System.out.println("[ Enter the amount you want to charge ]");
+        System.out.printf("[ Your budget : %d ]\n[ Enter the amount you want to charge ]\n" , users[Login.loggedInIndex].getBudget());
         users[Login.loggedInIndex].setBudget(users[Login.loggedInIndex].getBudget() + cin.nextInt());
         System.out.println(Login.done);
         System.out.printf("[ Your budget : %d ]" , users[Login.loggedInIndex].getBudget());
@@ -114,9 +119,16 @@ public class UserAction {
         }
 
 
-        System.out.println("[ Enter the flightId ]");
+        System.out.println("[ Enter the flightId ]\n[ Enter X if you want back ]");
 
         flightId = cin.next();
+
+        if (flightId.equals("X")){
+
+            passengerMenu(flights , users ,admin , userAction,flightAction);
+        }
+
+
 
 
         flightIndex = flightAction.checkFlight(flights, flightId);
@@ -132,7 +144,8 @@ public class UserAction {
                 } catch (InterruptedException e) {
                 }
                 ;
-                bookedTicket(users, flights, admin, userAction, flightAction);
+                bookingTicket(flights ,users ,admin , userAction,flightAction);
+
             }
         if (users[Login.loggedInIndex].getBudget() >= flights[flightIndex].getPrice()) {
 
@@ -170,6 +183,15 @@ public class UserAction {
                 }
                 ;
             }
+        }else {
+
+            System.out.println("[ You don not have enough money ]");
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+            }
+            ;
         }
 
         passengerMenu(flights, users, admin, userAction, flightAction);
@@ -205,10 +227,18 @@ public class UserAction {
             }
         }
 
-        System.out.println("[ Enter the ID of the ticket you want to cancel ]");
+        System.out.println("[ Enter the ID of the ticket you want to cancel ]\n[ Enter 0 if you want back ]");
+
         int ticketId;
 
         ticketId = cin.nextInt();
+
+        if (ticketId == 0){
+
+            passengerMenu(flights , users ,admin , userAction,flightAction);
+        }
+
+
 
         l = searchTicket1(users , flights ,ticketId );
         k = searchTicket2(users, ticketId);
